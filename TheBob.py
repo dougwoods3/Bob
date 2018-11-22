@@ -1,7 +1,12 @@
 
+#
+# Change these variables to tweak the problem:
+#
 plate = 1           # weight in pounds
-weight = 10         # weight in pounds
-airContainer = 3    # weight in pounds
+weight = 1          # weight in pounds
+airContainer = 1    # weight in pounds
+
+
 
 
 def buoyancy_volume(plate,weight,airContainer,airVol):
@@ -23,10 +28,14 @@ def pressure_head():
 
 
 def main():
-
-    print('\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-    print('%%%%         The Bob          %%%')
-    print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n')
+    print('\n /$$$$$$$$ /$$                       /$$$$$$$            /$$')
+    print('|__  $$__/| $$                      | $$__  $$          | $$')
+    print('   | $$   | $$$$$$$   /$$$$$$       | $$  \ $$  /$$$$$$ | $$$$$$$')
+    print('   | $$   | $$__  $$ /$$__  $$      | $$$$$$$  /$$__  $$| $$__  $$')
+    print('   | $$   | $$  \ $$| $$$$$$$$      | $$__  $$| $$  \ $$| $$  \ $$')
+    print('   | $$   | $$  | $$| $$_____/      | $$  \ $$| $$  | $$| $$  | $$')
+    print('   | $$   | $$  | $$|  $$$$$$$      | $$$$$$$/|  $$$$$$/| $$$$$$$/')
+    print('   |__/   |__/  |__/ \_______/      |_______/  \______/ |_______/\n\n')
 
     airVol0 = 1         # initial volume guess in fluid ounces
     airVol1 = 0
@@ -40,7 +49,8 @@ def main():
             continue
 
 
-    print('With a {:.1f} pound weight, you need {:.1f} ({:.1f}) fluid ounces (gal.) '.format(weight, airVol1, airVol1/128))
+    print('With a {:.1f} pound weight,'.format(weight))
+    print('    you need {:.1f} fl. oz. ({:.1f} gal.) '.format(airVol1, airVol1/128))
     print('    of air to have equal buoyancy with the weight.\n')
 
 main()
