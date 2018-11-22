@@ -2,22 +2,24 @@
 #
 # Change these variables to tweak the problem:
 #
-plate = 1           # weight in pounds
-weight = 1          # weight in pounds
-airContainer = 1    # weight in pounds
+plate = 1                   # weight in pounds
+weight = 1                  # weight in pounds
+airContainer = 1            # weight in pounds
 
+maxWeightHeight = 50        # height in inches
+chamberInnerDiameter = 4    # diameter in inches
 
+waterDensity = 8.345404/128      # pounds per fluid ounce
+airDensity = 0.0765/957.506      # pounds per fluid ounce
 
-
-def buoyancy_volume(plate,weight,airContainer,airVol):
+def buoyancy_volume(waterDensity,airDensity,plate,weight,airContainer,airVol):
     # Need to displace the volume of water that weighs MORE than
     #   the combined weight of the plate, weight, air container, and air.
-    waterDensity = 8.345404/128      # pounds per fluid ounce
-    airDensity = 0.0765/957.506      # pounds per fluid ounce
-
     airVol = (plate+weight+airContainer+airVol*airDensity)/waterDensity
     return airVol
 
+def work_from_fall():
+    return 0
 
 def pressure_head(mass,height):
         # mass (pounds)
@@ -40,7 +42,7 @@ def main():
     airVol1 = 0
     count = 0
     while (abs(airVol1 - airVol0) > 1e-5):
-        airVol1 = buoyancy_volume(plate,weight,airContainer,airVol0)
+        airVol1 = buoyancy_volume(waterDensity,airDensity,plate,weight,airContainer,airVol0)
         airVol0, airVol1 = airVol1, airVol0
         count += 1
         if count > 10:
@@ -48,8 +50,16 @@ def main():
             continue
 
 
-    print('With a {:.1f} pound weight,'.format(weight))
-    print('    you need {:.1f} fl. oz. ({:.1f} gal.) '.format(airVol1, airVol1/128))
-    print('    of air to have equal buoyancy with the weight.\n')
+
+
+    print('INPUTS:')
+    print('\tWeight:\t\t\t{:.1f}\tpound(s)'.format(weight))
+    print('\tPlate:\t\t\t{:.1f}\tpound(s)'.format(plate))
+    print('\tAir Container:\t\t{:.1f}\tpound(s)'.format(airContainer))
+    print('\tPlate height:\t\t{:.1f}\tinches'.format(maxWeightHeight))
+    print('\tChamber ID:\t\t{:.1f}\tinches'.format(chamberInnerDiameter))
+
+    print('\nOUTPUTS:')
+    print('\tAir volume needed:\t\t{:.1f}\tfl. oz. ({:.1f} gal.) \n'.format(airVol1, airVol1/128))
 
 main()
