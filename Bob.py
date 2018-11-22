@@ -9,6 +9,9 @@ weight = 1                  # weight in pounds
 airContainer = 1            # weight in pounds
 
 maxWeightHeight = 50        # height in inches
+minWeightHeight = 10        # height in inches
+dt = maxWeightHeight-minWeightHeight
+
 chamberInnerDiameter = 4    # diameter in inches
 
 waterDensity = 8.345404/128      # pounds per fluid ounce
@@ -20,11 +23,11 @@ def buoyancy_volume(waterDensity,airDensity,plate,weight,airContainer,airVol):
     airVol = (plate+weight+airContainer+airVol*airDensity)/waterDensity
     return airVol
 
-def work_from_fall(plate, weight, airContainer, maxWeightHeight, chamberInnerDiameter, waterDensity, airDensity, airVol):
+def work_from_fall(plate, weight, airContainer, dt, chamberInnerDiameter, waterDensity, airDensity, airVol):
     g = 384.0   # inches/sec^2
-    weightWork = (plate+weight+airContainer+airVol*airDensity)*g*maxWeightHeight
-    waterWork = g*waterDensity*math.pi*chamberInnerDiameter**2*maxWeightHeight**3/3
-    return (weightWork + waterWork)/(12**2*25037*0.94782)
+    weightWork = (plate+weight+airContainer+airVol*airDensity)*g*dt
+    waterWork = g*waterDensity*math.pi*chamberInnerDiameter**2*dt**2/2
+    return (weightWork + waterWork)/(12**2*25.037*0.94782)
 
 def pressure_head(mass, height):
         # mass (pounds)
@@ -57,7 +60,7 @@ def main():
             print('something is broken - tell Doug')
             continue
 
-    workOut = work_from_fall(plate, weight, airContainer, maxWeightHeight, chamberInnerDiameter, waterDensity, airDensity, airVol1)
+    workOut = work_from_fall(plate, weight, airContainer, dt, chamberInnerDiameter, waterDensity, airDensity, airVol1)
 
 
 
@@ -76,6 +79,6 @@ def main():
 
     print('\nOUTPUTS:')
     print('\tAir volume needed:\t\t{:.1f}\tfl. oz. ({:.1f} gal.)'.format(airVol1, airVol1/128))
-    print('\tGross work out:\t\t\t{:.1f}\tkilo-Joules\n'.format(workOut))
+    print('\tGross work out:\t\t\t{:.1f}\tJoules\n'.format(workOut))
 
 main()
