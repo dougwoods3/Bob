@@ -16,15 +16,14 @@ def buoyancy_volume(plate,weight,airContainer,airVol):
     airDensity = 0.0765/957.506      # pounds per fluid ounce
 
     airVol = (plate+weight+airContainer+airVol*airDensity)/waterDensity
-
-
-
-
     return airVol
 
 
-def pressure_head():
-    NaN
+def pressure_head(mass,height):
+        # mass (pounds)
+        # g = 32 ft/sec^2
+        # height (inches)
+    return mass*32.0*height
 
 
 def main():
