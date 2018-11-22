@@ -27,7 +27,7 @@ def work_from_fall(plate, weight, airContainer, dt, chamberInnerDiameter, waterD
     g = 384.0   # inches/sec^2
     weightWork = (plate+weight+airContainer+airVol*airDensity)*g*dt
     waterWork = g*waterDensity*math.pi*chamberInnerDiameter**2*dt**2/2
-    return (weightWork + waterWork)/(12**2*25.037*0.94782)
+    return (weightWork + waterWork)/(12**2*25.037*0.94782),weightWork/(12**2*25.037*0.94782)
 
 def pressure_head(mass, height):
         # mass (pounds)
@@ -60,14 +60,15 @@ def main():
             print('something is broken - tell Doug')
             continue
 
-    workOut = work_from_fall(plate, weight, airContainer, dt, chamberInnerDiameter, waterDensity, airDensity, airVol1)
+    (grossWorkOut,netWorkOut) = work_from_fall(plate, weight, airContainer, dt, chamberInnerDiameter, waterDensity, airDensity, airVol1)
 
 
 
     print('There is a straight cylindrical chamber full of water with a weight on top.')
     print('We calculate:')
     print('   1) the volume of air required to float the weight (neglecting the pressure change)')
-    print('   2) the work done by the weight and water falling to/out of the bottom\n\n')
+    print('   2) the work done by the weight and water falling to/out of the bottom')
+    print('   3) net work out from the falling weight pushing water up in the reservoir\n\n')
 
 
     print('INPUTS:')
@@ -79,6 +80,7 @@ def main():
 
     print('\nOUTPUTS:')
     print('\tAir volume needed:\t\t{:.1f}\tfl. oz. ({:.1f} gal.)'.format(airVol1, airVol1/128))
-    print('\tGross work out:\t\t\t{:.1f}\tJoules\n'.format(workOut))
+    print('\tGross work out:\t\t\t{:.1f}\tJoules'.format(grossWorkOut))
+    print('\tNet work out:\t\t\t{:.1f}\tJoules\n'.format(netWorkOut))
 
 main()
